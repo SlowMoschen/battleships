@@ -1,6 +1,7 @@
 import { Ship } from "./Ship";
 import { CellStates } from "./types/CellStates";
 import { Point } from "./types/Point";
+import {ships} from "../config";
 
 export class Gameboard {
     public static BOARD_SIZE: number = 10;
@@ -45,6 +46,38 @@ export class Gameboard {
         return isInBounds && isNotOccupied && isNotAdjacent;
     }
 
+    public placeShipsRandomly(): void {
+        Object.values(ships).forEach((ship) => {
+            let coordinates: Point[] = [];
+
+            while (!this.isShipPlacementValid(coordinates) || coordinates.length === 0) {
+                coordinates = this.getRandomShipCoordinates(ship.size);
+            }
+
+            const shipInstance = new Ship(ship.name, ship.size, coordinates);
+            this.placeShip(shipInstance, coordinates);
+        });
+    }
+
+    private getRandomShipCoordinates(shipSize: number): Point[] {
+        const orientation = Math.random() < 0.5 ? "horizontal" : "vertical";
+        const x = Math.floor(Math.random() * Gameboard.BOARD_SIZE);
+        const y = Math.floor(Math.random() * Gameboard.BOARD_SIZE);
+        const coordinates: Point[] = [];
+
+        if (orientation === "horizontal") {
+            for (let i = 0; i < shipSize; i++) {
+                coordinates.push({ x: x + i, y });
+            }
+        } else {
+            for (let i = 0; i < shipSize; i++) {
+                coordinates.push({ x, y: y + i });
+            }
+        }
+
+        return coordinates;
+    }
+
     /**
      * Attack Methods
      */
@@ -56,6 +89,7 @@ export class Gameboard {
             case CellStates.SHIP:
                 ship?.hit();
                 this.board[point.x][point.y] = CellStates.HIT;
+                if (this.allShipsSunk()) this.gameOver();
                 break;
             case CellStates.MISS:
                 break;
@@ -70,6 +104,10 @@ export class Gameboard {
 
     public allShipsSunk(): boolean {
         return this.ships.every((ship) => ship.isSunk());
+    }
+
+    private gameOver(): void {
+        console.log("Game Over");
     }
 
     // MARK: GETTERS

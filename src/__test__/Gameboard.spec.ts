@@ -47,6 +47,18 @@ describe("Gameboard methods", () => {
     expect(gameboard.placeShip).not.toBe(undefined);
   });
 
+  test("should have a isShipPlacementValid method", () => {
+    expect(gameboard["isShipPlacementValid"]).not.toBe(undefined);
+  });
+
+  test("should have a placeShipsRandomly method", () => {
+    expect(gameboard.placeShipsRandomly).not.toBe(undefined);
+  });
+
+  test("should have a getRandomShipCoordinates method", () => {
+    expect(gameboard["getRandomShipCoordinates"]).not.toBe(undefined);
+  });
+
   test("should have a receiveAttack method", () => {
     expect(gameboard.receiveAttack).not.toBe(undefined);
   });
@@ -93,25 +105,36 @@ describe("Gameboard placeShip method", () => {
     gameboard.placeShip(ship, ship.coordinates);
 
     expect(gameboard.ships.length).toBe(1);
+  });
+
+  test("should not place a ship if the coordinates are out of bounds", () => {
+    const ship = new Ship("carrier", 5, [{ x: 11, y: 11 }]);
+
+    gameboard.placeShip(ship, ship.coordinates);
+
+    expect(gameboard.ships.length).toBe(0);
+  });
+
+  test("should not place a ship if the coordinates are adjacent to another ship", () => {
+    const ship1 = new Ship("carrier", 5, SHIP_COORDINATES);
+    const ship2 = new Ship("carrier", 5, [{ x: 1, y: 1 }]);
+
+    gameboard.placeShip(ship1, ship1.coordinates);
+    gameboard.placeShip(ship2, ship2.coordinates);
+
+    expect(gameboard.ships.length).toBe(1);
+  });
+
+  test("should place ships randomly when calling placeShipsRandomly", () => {
+    gameboard.placeShipsRandomly();
+
+    expect(gameboard.ships.length).toBe(5);
+    expect(gameboard.ships[0].coordinates.length).toBe(5);
+    const shipCoordinates = gameboard.ships.map((ship) => ship.coordinates);
+    shipCoordinates.forEach((coordinates) => {
+      expect(coordinates.every((point) => gameboard.board[point.x][point.y] === 1)).toBe(true);
     });
-
-    test("should not place a ship if the coordinates are out of bounds", () => {
-        const ship = new Ship("carrier", 5, [{ x: 11, y: 11 }]);
-
-        gameboard.placeShip(ship, ship.coordinates);
-
-        expect(gameboard.ships.length).toBe(0);
-    });
-
-    test("should not place a ship if the coordinates are adjacent to another ship", () => {
-        const ship1 = new Ship("carrier", 5, SHIP_COORDINATES);
-        const ship2 = new Ship("carrier", 5, [{ x: 1, y: 1 }]);
-
-        gameboard.placeShip(ship1, ship1.coordinates);
-        gameboard.placeShip(ship2, ship2.coordinates);
-
-        expect(gameboard.ships.length).toBe(1);
-    });
+  });
 });
 
 // MARK: RECEIVE ATTACK
