@@ -14,6 +14,7 @@ export class Ship {
 
     public hit(): void {
         this.hits++;
+        if (this.isSunk()) this.hits = this.size;
     }
 
     public isSunk(): boolean {

@@ -6,7 +6,10 @@ import { Point } from "./types/Point";
 
 type ShipNames = keyof typeof ships;
 
-abstract class Player {
+/**
+ * Abstract class for Player - RealPlayer and BotPlayer will extend this class
+ */
+export abstract class Player {
   abstract isBot: boolean;
   abstract name: string;
   public gameBoard: Gameboard = new Gameboard();

@@ -11,11 +11,7 @@ export class Gameboard {
 
     constructor() {}
 
-    // MARK: METHODS
-
-    /**
-     * Placing Methods
-     */
+    // MARK: SHIP PLACEMENT
     public placeShip(ship: Ship, coordinates: Point[]): void {
         if (this.isShipPlacementValid(coordinates)) {
             this.ships.push(ship);
@@ -78,9 +74,7 @@ export class Gameboard {
         return coordinates;
     }
 
-    /**
-     * Attack Methods
-     */
+    // MARK: GAMEPLAY
     public receiveAttack(point: Point): void {
         const cell = this.board[point.x][point.y];
         const ship = this.ships.find((ship) => ship.coordinates.some((coord) => coord.x === point.x && coord.y === point.y));
@@ -89,7 +83,7 @@ export class Gameboard {
             case CellStates.SHIP:
                 ship?.hit();
                 this.board[point.x][point.y] = CellStates.HIT;
-                if (this.allShipsSunk()) this.gameOver();
+                if (this.areAllShipsSunk()) this.gameOver();
                 break;
             case CellStates.MISS:
                 break;
@@ -102,7 +96,7 @@ export class Gameboard {
         }
     }
 
-    public allShipsSunk(): boolean {
+    public areAllShipsSunk(): boolean {
         return this.ships.every((ship) => ship.isSunk());
     }
 

@@ -64,7 +64,7 @@ describe("Gameboard methods", () => {
   });
 
   test("should have a allShipsSunk method", () => {
-    expect(gameboard.allShipsSunk).not.toBe(undefined);
+    expect(gameboard.areAllShipsSunk).not.toBe(undefined);
   });
 
   test("should have a missedShotsCount getter", () => {
@@ -168,7 +168,7 @@ describe("Gameboard receiveAttack method", () => {
     gameboard.receiveAttack({ x: 0, y: 3 });
     gameboard.receiveAttack({ x: 0, y: 4 });
 
-    expect(gameboard.allShipsSunk()).toBe(true);
+    expect(gameboard.areAllShipsSunk()).toBe(true);
   });
 
   test("should do nothing if the cell is already hit", () => {
