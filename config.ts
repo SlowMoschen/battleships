@@ -1,4 +1,4 @@
-export const ships = {
+export const SHIPS = {
   carrier: { name: "carrier", size: 5 },
   battleship: { name: "battleship", size: 4 },
   cruiser: { name: "cruiser", size: 3 },

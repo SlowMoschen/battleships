@@ -1,10 +1,10 @@
-import { ships } from "../config";
+import { SHIPS } from "../../config";
+import { CellStates } from "../types/CellStates";
+import { Point } from "../types/Point";
 import { Gameboard } from "./Gameboard";
 import { Ship } from "./Ship";
-import { CellStates } from "./types/CellStates";
-import { Point } from "./types/Point";
 
-type ShipNames = keyof typeof ships;
+type ShipNames = keyof typeof SHIPS;
 
 /**
  * Abstract class for Player - RealPlayer and BotPlayer will extend this class
@@ -52,7 +52,7 @@ export class RealPlayer extends Player {
 
   public placeShip(shipName: ShipNames, orientation: string, start: Point): void {
     let coordinates: Point[] = [];
-    const ship = ships[shipName];
+    const ship = SHIPS[shipName];
 
     for (let i = 0; i < ship.size; i++) {
       if (orientation === "horizontal") {

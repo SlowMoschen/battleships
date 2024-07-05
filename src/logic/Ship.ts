@@ -1,4 +1,4 @@
-import { Point } from "./types/Point";
+import { Point } from "../types/Point";
 
 export class Ship {
     public name: string;

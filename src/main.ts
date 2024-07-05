@@ -1,4 +1,2 @@
-import "./Controls"
 import './style.css'
-
-const app = document.querySelector<HTMLDivElement>('#app')!
+import './components/index'

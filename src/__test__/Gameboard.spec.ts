@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { Gameboard } from "../Gameboard";
-import { Ship } from "../Ship";
+import { Gameboard } from "../logic/Gameboard";
+import { Ship } from "../logic/Ship";
 
 const SHIP_COORDINATES = [
   { x: 0, y: 0 },

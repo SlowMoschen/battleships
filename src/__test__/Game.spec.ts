@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { BotPlayer, RealPlayer } from "../Player";
-import { GameController } from "../GameController";
+import { BotPlayer, RealPlayer } from "../logic/Player";
+import { GameController } from "../logic/GameController";
 
 describe("Game initialization", () => {
 

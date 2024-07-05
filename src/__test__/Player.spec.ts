@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "vitest";
-import { RealPlayer, BotPlayer } from "../Player";
 import { CellStates } from "../types/CellStates";
+import { BotPlayer, RealPlayer } from "../logic/Player";
 
 // MARK: Player initialization
 describe("Player initialization", () => {

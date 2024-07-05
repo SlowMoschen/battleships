@@ -1,7 +1,7 @@
+import { CellStates } from "../types/CellStates";
+import { Point } from "../types/Point";
 import { Ship } from "./Ship";
-import { CellStates } from "./types/CellStates";
-import { Point } from "./types/Point";
-import {ships} from "../config";
+import { SHIPS } from "../../config";
 
 export class Gameboard {
     public static BOARD_SIZE: number = 10;
@@ -43,7 +43,7 @@ export class Gameboard {
     }
 
     public placeShipsRandomly(): void {
-        Object.values(ships).forEach((ship) => {
+        Object.values(SHIPS).forEach((ship) => {
             let coordinates: Point[] = [];
 
             while (!this.isShipPlacementValid(coordinates) || coordinates.length === 0) {

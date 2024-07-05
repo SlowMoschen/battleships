@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { Ship } from "../Ship";
+import { Ship } from "../logic/Ship";
 
 // MARK: INITIALIZATION
 describe("Ship initialization", () => {

@@ -1,6 +1,5 @@
 import { Gameboard } from "./Gameboard";
-import { BotPlayer, Player } from "./Player";
-import { Point } from "./types/Point";
+import { Player } from "./Player";
 
 export class GameController {
     public player1: Player;
